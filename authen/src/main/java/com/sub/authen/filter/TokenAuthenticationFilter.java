@@ -1,5 +1,6 @@
 package com.sub.authen.filter;
 
+import com.sub.authen.facade.FacadeService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -24,8 +25,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private final AuthTokenService authTokenService;
-    private final AuthUserService authUserService;
-    private final AuthAccountService authAccountService;
+//    private final AuthUserService authUserService;
+//    private final AuthAccountService authAccountService;
+    private final FacadeService facadeService;
 
     @Override
     protected void doFilterInternal(
@@ -59,8 +61,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 //        log.info("(doFilterInternal)userId : {}", userId);
         if (Objects.nonNull(userId)
                 && Objects.isNull(SecurityContextHolder.getContext().getAuthentication())) {
-            var user = authUserService.findById(userId);
-            var account = authAccountService.findByUserIdWithThrow(user.getId());
+            var user = facadeService.findById(userId);
+            var account = facadeService.findByUserIdWithThrow(user.getId());
             if (authTokenService.validateAccessToken(jwtToken, userId)) {
                 var usernamePasswordAuthToken =
                         new UsernamePasswordAuthenticationToken(

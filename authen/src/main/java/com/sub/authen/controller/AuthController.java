@@ -22,5 +22,7 @@ public class AuthController {
         }catch (Exception exception){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+//        return ResponseEntity.ok(authFacadeService.login(request));
+
     }
 }
