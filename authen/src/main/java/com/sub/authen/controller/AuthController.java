@@ -16,13 +16,13 @@ public class AuthController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> login(
              @RequestBody AuthUserLoginRequest request) {
-        try {
-            return ResponseEntity.ok(authFacadeService.login(request));
-
-        }catch (Exception exception){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-//        return ResponseEntity.ok(authFacadeService.login(request));
+//        try {
+//            return ResponseEntity.ok(authFacadeService.login(request));
+//
+//        }catch (Exception exception){
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+        return ResponseEntity.ok(authFacadeService.login(request));
 
     }
 }

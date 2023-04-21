@@ -1,7 +1,7 @@
 application:
   authentication:
     access_token:
-      jwt_secretZ: 8GJ64eimY
+      jwt_secret: 8GJ64eimY
       life_time: 3600000
     refresh_token:
       jwt_secret: Z8GJ64eimY

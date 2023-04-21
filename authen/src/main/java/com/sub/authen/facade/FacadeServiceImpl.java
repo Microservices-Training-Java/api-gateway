@@ -77,21 +77,21 @@ public class FacadeServiceImpl implements FacadeService{
 
     @Override
     public AuthUser findById(String id) {
-        return restTemplate.getForEntity(URLConstant.UserUrl+"/"+id,AuthUser.class).getBody();
+        return restTemplate.getForEntity(URLConstant.UserUrl+"/get-user-by-id/"+id,AuthUser.class).getBody();
     }
 
     @Override
     public AuthAccount findByUserIdWithThrow(String userId) {
-        return restTemplate.getForEntity(URLConstant.UserUrl+"/"+userId,AuthAccount.class).getBody();
+        return restTemplate.getForEntity(URLConstant.UserUrl+"/get-account-by-id/"+userId,AuthAccount.class).getBody();
     }
 
     @Override
     public AccountUserProjection findByUsername(String userId) {
-        return restTemplate.getForEntity(URLConstant.UserUrl+"/"+userId,AccountUserProjection.class).getBody();
+        return restTemplate.getForEntity(URLConstant.UserUrl+"/get-account-by-username/"+userId,AccountUserProjection.class).getBody();
     }
 
     @Override
     public void enableLockPermanent(String email) {
-        restTemplate.getForEntity(URLConstant.UserUrl+"/"+email,String.class);
+        restTemplate.getForEntity(URLConstant.UserUrl+"/get-account-by-email/"+email,String.class);
     }
 }
