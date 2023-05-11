@@ -22,15 +22,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
-@ComponentScan(basePackages = "com.sub.authen.service")
+@ComponentScan(basePackages = "com.sub.authen")
 @EnableJpaRepositories(
-        basePackages = {"com.sub.authen.repository"}, transactionManagerRef = "jpaAuthTransactionManager")
+        basePackages = {"com.sub.authen"}, transactionManagerRef = "jpaAuthTransactionManager")
 @EntityScan(basePackages = {"com.sub.authen.entity"})
-@ComponentScan(basePackages = {"com.sub.authen.repository"})
 @EnableJpaAuditing
+// Main có tác dụng quét bean trong applicationContext => phải có componentscanf quét thủ công
 public class GatewayAuthenConfig {
-    @Autowired
-    private TokenAuthenticationFilter tokenAuthenticationFilter;
+//    @Autowired
+    private final TokenAuthenticationFilter tokenAuthenticationFilter;
     @Autowired
     private AuthenticationErrorHandle authenticationErrorHandle;
 
