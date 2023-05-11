@@ -2,7 +2,7 @@ package com.sub.authen.facade;
 
 import com.sub.authen.entity.AuthAccount;
 import com.sub.authen.entity.AuthUser;
-import com.sub.authen.repository.AccountUserProjection;
+import com.sub.authen.repository.projection.AccountUserProjection;
 import com.sub.authen.request.AuthUserLoginRequest;
 import com.sub.authen.response.AuthUserLoginResponse;
 

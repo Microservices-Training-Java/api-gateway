@@ -1,6 +1,7 @@
 package com.sub.authen.repository;
 
 import com.sub.authen.entity.AuthAccount;
+import com.sub.authen.repository.projection.AccountUserProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,7 +14,7 @@ public interface AuthAccountRepository extends JpaRepository<AuthAccount, String
  Optional<AuthAccount> findFirstByUserId(String id);
  Optional<AuthAccount> findByUsername(String username);
  @Query(
-         "select new com.sub.authen.repository.AccountUserProjection("
+         "select new com.sub.authen.repository.projection.AccountUserProjection("
                  + "a.id, "
                  + "a.username, "
                  + "a.password, "

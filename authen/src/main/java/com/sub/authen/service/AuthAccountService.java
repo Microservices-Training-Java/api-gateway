@@ -2,7 +2,7 @@ package com.sub.authen.service;
 
 
 import com.sub.authen.entity.AuthAccount;
-import com.sub.authen.repository.AccountUserProjection;
+import com.sub.authen.repository.projection.AccountUserProjection;
 
 public interface AuthAccountService {
     AuthAccount findByUserIdWithThrow(String userId);

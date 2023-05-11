@@ -3,7 +3,7 @@ package com.sub.authen.facade;
 import com.sub.authen.constant.URLConstant;
 import com.sub.authen.entity.AuthAccount;
 import com.sub.authen.entity.AuthUser;
-import com.sub.authen.repository.AccountUserProjection;
+import com.sub.authen.repository.projection.AccountUserProjection;
 import java.util.ArrayList;
 
 import com.sub.authen.constant.CacheConstant;

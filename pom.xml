@@ -6,6 +6,7 @@
 
 	<modules>
 		<module>authen</module>
+		<module>gateway</module>
 	</modules>
 
 	<parent>
@@ -15,14 +16,30 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>okrs-backend</artifactId>
+	<artifactId>api-gateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>okrs-backend</name>
+	<name>api-gateway</name>
 	<description>okrs-backend</description>
 
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>2021.0.6</spring-cloud.version>
+		<gateway.version>0.0.1-SNAPSHOT</gateway.version>
+		<spring-cloud-starter-gateway.version>3.1.6</spring-cloud-starter-gateway.version>
+		<spring-cloud-starter-netflix-ribbon.version>2.2.4.RELEASE</spring-cloud-starter-netflix-ribbon.version>
+		<spring-cloud-starter-netflix-eureka-client.version>4.0.0</spring-cloud-starter-netflix-eureka-client.version>
+		<javax.servlet-api.version>4.0.1</javax.servlet-api.version>
+		<validation-api.version>2.0.1.Final</validation-api.version>
+		<jjwt.version>0.9.1</jjwt.version>
+		<lombok.version>1.18.26</lombok.version>
+		<posgresql.version>42.5.4</posgresql.version>
+		<spring-boot-starter.version>3.0.6</spring-boot-starter.version>
+		<spring-boot-starter-data-jpa.version>3.0.6</spring-boot-starter-data-jpa.version>
+		<spring-boot-starter-data-redis.version>3.0.6</spring-boot-starter-data-redis.version>
+		<spring-boot-starter-security.version>3.0.6</spring-boot-starter-security.version>
+		<spring-boot-starter-web.version>3.0.6</spring-boot-starter-web.version>
+		<authen.version>0.0.1-SNAPSHOT</authen.version>
+		<spring-boot-starter-test.version>3.0.6</spring-boot-starter-test.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -36,14 +53,105 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+<dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>com.example</groupId>
+			<artifactId>authen</artifactId>
+			<version>${authen.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.example</groupId>
+			<artifactId>gateway</artifactId>
+			<version>${gateway.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-gateway</artifactId>
+			<version>${spring-cloud-starter-gateway.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+			<version>${spring-cloud-starter-netflix-ribbon.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<version>${spring-cloud-starter-netflix-eureka-client.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>${spring-boot-starter-web.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<version>${spring-boot-starter.version}</version>
+		</dependency>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<version>${spring-boot-starter-test.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+			<version>${spring-boot-starter-security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+			<version>${spring-boot-starter-data-redis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>${jedis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>${spring-boot-starter-data-jpa.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${javax.servlet-api.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>${validation-api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>${jjwt.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-dependencies</artifactId>
+			<version>${spring-cloud.version}</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>
+	</dependencies>
+</dependencyManagement>
+
 
 </project>

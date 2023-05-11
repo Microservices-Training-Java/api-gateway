@@ -1,7 +1,7 @@
 package com.sub.authen.service.impl;
 import com.sub.authen.entity.AuthAccount;
 import com.sub.authen.exception.BaseException;
-import com.sub.authen.repository.AccountUserProjection;
+import com.sub.authen.repository.projection.AccountUserProjection;
 import com.sub.authen.repository.AuthAccountRepository;
 import com.sub.authen.service.AuthAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthAccountServiceImpl implements AuthAccountService {
-    @Autowired
+    @Autowired(required=true)
     private AuthAccountRepository repository;
     @Override
     public AuthAccount findByUserIdWithThrow(String userId) {

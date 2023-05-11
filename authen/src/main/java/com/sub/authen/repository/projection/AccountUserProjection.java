@@ -1,4 +1,4 @@
-package com.sub.authen.repository;
+package com.sub.authen.repository.projection;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
