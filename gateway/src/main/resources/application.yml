@@ -24,12 +24,12 @@ application:
 # EUREKA CONFIG
 server:
   port: 9091
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
-  instance:
-    instanceId:myhost:myappname:9091
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+#  instance:
+#    instanceId:myhost:myappname:9091
 
 
 #Gateway config
