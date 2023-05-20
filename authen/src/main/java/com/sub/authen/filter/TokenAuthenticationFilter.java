@@ -1,6 +1,10 @@
 package com.sub.authen.filter;
 
+import com.sub.authen.constant.ClaimsConstant;
 import com.sub.authen.facade.FacadeService;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwt;
+import io.jsonwebtoken.Jwts;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -9,9 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sub.authen.service.AuthAccountService;
 import com.sub.authen.service.AuthTokenService;
-import com.sub.authen.service.AuthUserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,8 +27,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private final AuthTokenService authTokenService;
-//    private final AuthUserService authUserService;
-//    private final AuthAccountService authAccountService;
     private final FacadeService facadeService;
 
     @Override
@@ -50,15 +50,24 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         var jwtToken = accessToken.substring(7);
+        Claims claims = authTokenService.getClaimsFromAccessToken(jwtToken);
+        String username = claims.get(ClaimsConstant.USERNAME.getValue(), String.class);
+
+
         String userId;
         try {
+
             userId = authTokenService.getSubjectFromAccessToken(jwtToken);
+            request.setAttribute(ClaimsConstant.USER_ID.getValue(), userId);
+            request.setAttribute(ClaimsConstant.USERNAME.getValue(), username);
+            //TODO: get role and set Attribute
+
         } catch (Exception ex) {
-//            log.error("(doFilterInternal)get subject token failed");
+            log.error("(doFilterInternal)get subject token failed");
             filterChain.doFilter(request, response);
             return;
         }
-//        log.info("(doFilterInternal)userId : {}", userId);
+        log.info("(doFilterInternal)userId : {}", userId);
         if (Objects.nonNull(userId)
                 && Objects.isNull(SecurityContextHolder.getContext().getAuthentication())) {
             var user = facadeService.findById(userId);

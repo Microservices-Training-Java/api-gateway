@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.function.Function;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,11 @@ public class AuthTokenServiceImpl implements AuthTokenService {
     private Claims getClaims(String token, String secretKey) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
     }
+
+    public Claims getClaimsFromAccessToken(String token) {
+        return getClaims(token, accessTokenJwtSecret);
+    }
+
     @Override
     public boolean validateAccessToken(String accessToken, String userId) {
         if(getSubjectFromAccessToken(accessToken).equals(userId) == false || isExpiredToken(accessToken,accessTokenJwtSecret) == true){
@@ -49,6 +55,8 @@ public class AuthTokenServiceImpl implements AuthTokenService {
         var claims = new HashMap<String, Object>();
         claims.put("email", email);
         claims.put("username", username);
+        // TODO: put role to set token
+//        claims.put("role", new HashSet<>());
         return generateToken(userId, claims, accessTokenLifeTime, accessTokenJwtSecret);
     }
     private String generateToken(

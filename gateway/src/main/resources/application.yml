@@ -7,8 +7,6 @@ application:
       jwt_secret: Z8GJ64eimY
       life_time: 3600000
 
-
-
 #application.authentication.access_token.jwt_secret:Z8GJ64eimY
 #application.authentication.access_token.life_time: 3600000
 #application.authentication.refresh_token.jwt_secret:Z8GJ64eimY
@@ -30,7 +28,6 @@ server:
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
   instance:
     instanceId:myhost:myappname:9093
-
 
 #Gateway config
 spring:
@@ -57,15 +54,15 @@ spring:
         simple:
           service-ids: gateway-service
 
-
   datasource:
-    url: jdbc:postgresql://localhost:5432/authen #postgres?currentSchema=okrs_authen
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=authen #postgres?currentSchema=okrs_authen
     username: postgres
-    password: linh2002
+    password: Songtoan0302
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   data:
     redis:
       port: 6379

@@ -28,6 +28,10 @@
             <artifactId>springdoc-openapi-webflux-ui</artifactId>
             <version>1.7.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.aibles</groupId>
+            <artifactId>helper-header</artifactId>
+        </dependency>
     </dependencies>
 
     <properties>

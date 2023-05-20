@@ -40,6 +40,7 @@
 		<spring-boot-starter-web.version>3.0.6</spring-boot-starter-web.version>
 		<authen.version>0.0.1-SNAPSHOT</authen.version>
 		<spring-boot-starter-test.version>3.0.6</spring-boot-starter-test.version>
+		<helper-header.version>0.0.1-SNAPSHOT</helper-header.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -81,46 +82,15 @@
 			<version>${spring-cloud-starter-netflix-eureka-client.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-			<version>${spring-boot-starter-web.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>${postgresql.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-			<version>${spring-boot-starter.version}</version>
-		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<version>${spring-boot-starter-test.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-			<version>${spring-boot-starter-security.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-			<version>${spring-boot-starter-data-redis.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 			<version>${jedis.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-			<version>${spring-boot-starter-data-jpa.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -149,6 +119,11 @@
 			<version>${spring-cloud.version}</version>
 			<type>pom</type>
 			<scope>import</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.aibles</groupId>
+			<artifactId>helper-header</artifactId>
+			<version>${helper-header.version}</version>
 		</dependency>
 	</dependencies>
 </dependencyManagement>
