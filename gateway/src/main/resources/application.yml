@@ -7,18 +7,6 @@ application:
       jwt_secret: Z8GJ64eimY
       life_time: 3600000
 
-#application.authentication.access_token.jwt_secret:Z8GJ64eimY
-#application.authentication.access_token.life_time: 3600000
-#application.authentication.refresh_token.jwt_secret:Z8GJ64eimY
-#application.authentication.refresh_token.life_time:3600000
-#spring.datasource.url=jdbc:postgresql://localhost:5432/postgres?currentSchema=okrs_authen
-#spring.datasource.username=postgres
-#spring.datasource.password=123456
-#spring.jpa.hibernate.ddl-auto=update
-#spring.jpa.show-sql=true
-#spring.data.redis.port=6379
-#spring.data.redis.host=localhost
-
 # EUREKA CONFIG
 server:
   port: 9093
@@ -55,9 +43,9 @@ spring:
           service-ids: gateway-service
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=authen #postgres?currentSchema=okrs_authen
-    username: postgres
-    password: Songtoan0302
+    url: ${SPRING_DATASOURCE_URL}#postgres?currentSchema=okrs_authen
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
