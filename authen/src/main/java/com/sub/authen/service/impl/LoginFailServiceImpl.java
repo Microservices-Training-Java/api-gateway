@@ -1,10 +1,11 @@
 package com.sub.authen.service.impl;
 
 
-import com.sub.authen.exception.BaseException;
-import com.sub.authen.service.AuthAccountService;
+import com.example.BadRequestException;
+import com.sub.authen.facade.FacadeService;
 import com.sub.authen.service.LoginFailService;
 import com.sub.authen.utils.DateUtils;
+import com.thoughtworks.xstream.core.BaseException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -17,19 +18,19 @@ public class LoginFailServiceImpl extends BaseRedisHashServiceImpl<Long> impleme
         LoginFailService {
 
   public LoginFailServiceImpl(
-      RedisTemplate<String, Object> redisTemplate, AuthAccountService authAccountService) {
+      RedisTemplate<String, Object> redisTemplate, FacadeService facadeService) {
     super(redisTemplate);
-    this.authAccountService = authAccountService;
+    this.facadeService = facadeService;
   }
-  private final AuthAccountService authAccountService;
+  private final FacadeService facadeService;
   @Override
   public void checkLock(String email, String userId, Boolean isLockPermanent) {
 
     if (isLockPermanent) {
-      throw new BaseException(300, "300", "Account was locked");
+      throw new BadRequestException("Account was locked");
     }
     if (isTemporaryLock(email)) {
-      throw new BaseException(301,"301", "Account is locking temporarily");
+      throw new BadRequestException( "Account is locking temporarily");
     }
   }
   @Override
@@ -53,7 +54,7 @@ public class LoginFailServiceImpl extends BaseRedisHashServiceImpl<Long> impleme
   public void setLock(String email) {
     Long failAttempts = (Long) get(KEY_CACHE_FAIL_ATTEMPTS, email);
     if (failAttempts.equals(THIRD_LOCK_LIMIT)) {
-      authAccountService.enableLockPermanent(email);
+      facadeService.enableLockPermanent(email);
     }
     if (failAttempts.equals(SECOND_LOCK_LIMIT)) {
       set(KEY_CACHE_UNLOCK_TIME, email, DateUtils.getCurrentEpoch() + SECOND_LOCK_TIME);

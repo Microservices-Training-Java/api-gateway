@@ -6,6 +6,8 @@ application:
     refresh_token:
       jwt_secret: Z8GJ64eimY
       life_time: 3600000
+  kafka:
+      bootstrap-server:
 
 
 
@@ -57,11 +59,10 @@ spring:
         simple:
           service-ids: gateway-service
 
-
   datasource:
-    url: jdbc:postgresql://localhost:5432/authen #postgres?currentSchema=okrs_authen
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=okrs_authen
     username: postgres
-    password: linh2002
+    password: 123456
   jpa:
     hibernate:
       ddl-auto: update
@@ -73,6 +74,7 @@ spring:
   main:
     web-application-type: reactive
     allow-bean-definition-overriding: true
+    allow-circular-references: true
 
 springdoc:
   api-docs:

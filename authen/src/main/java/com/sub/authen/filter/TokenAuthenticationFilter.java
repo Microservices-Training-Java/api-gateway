@@ -1,6 +1,7 @@
 package com.sub.authen.filter;
 
 import com.sub.authen.facade.FacadeService;
+import com.sub.authen.service.AuthTokenService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -9,9 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sub.authen.service.AuthAccountService;
-import com.sub.authen.service.AuthTokenService;
-import com.sub.authen.service.AuthUserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,8 +23,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private final AuthTokenService authTokenService;
-//    private final AuthUserService authUserService;
-//    private final AuthAccountService authAccountService;
     private final FacadeService facadeService;
 
     @Override
