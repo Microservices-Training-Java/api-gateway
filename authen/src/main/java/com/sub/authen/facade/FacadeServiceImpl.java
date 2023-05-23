@@ -56,10 +56,10 @@ public class FacadeServiceImpl implements FacadeService{
         loginFailService.resetFailAttempts(accountUser.getEmail());
         String accessToken =
                 authTokenService.generateAccessToken(
-                        accountUser.getUserId(), accountUser.getEmail(), accountUser.getUsername());
+                        accountUser.getUserId(), accountUser.getEmail(), accountUser.getUsername(), accountUser.getRoles());
         String refreshToken =
                 authTokenService.generateRefreshToken(
-                        accountUser.getUserId(), accountUser.getEmail(), accountUser.getUsername());
+                        accountUser.getUserId(), accountUser.getEmail(), accountUser.getUsername(), accountUser.getRoles());
         tokenRedisService.set(CacheConstant.CacheToken.KEY_CACHE_ACCESS_TOKEN, accountUser.getUserId(), accessToken);
         tokenRedisService.set(CacheConstant.CacheToken.KEY_CACHE_REFRESH_TOKEN, accountUser.getUserId(), refreshToken);
         authenticate(accountUser.getUsername(), accountUser.getUserId());

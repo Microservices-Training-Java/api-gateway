@@ -14,25 +14,24 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
+import org.springframework.web.server.WebFilter;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebFluxSecurity
 @AllArgsConstructor
 @ComponentScan(basePackages = "com.sub.authen")
-@EnableJpaRepositories(
-        basePackages = {"com.sub.authen"}, transactionManagerRef = "jpaAuthTransactionManager")
-@EntityScan(basePackages = {"com.sub.authen.entity"})
-@EnableJpaAuditing
-// Main có tác dụng quét bean trong applicationContext => phải có componentscanf quét thủ công
 public class GatewayAuthenConfig {
-//    @Autowired
+
     private final TokenAuthenticationFilter tokenAuthenticationFilter;
-    @Autowired
-    private AuthenticationErrorHandle authenticationErrorHandle;
+    private final AuthenticationErrorHandle authenticationErrorHandle;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -40,18 +39,18 @@ public class GatewayAuthenConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) {
         return http
                 .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/api/v1/auth/**").permitAll()
-                .anyRequest().authenticated()
+                .authorizeExchange()
+                .pathMatchers("/api/v1/auth/**").permitAll()
+                .anyExchange().authenticated()
                 .and()
-                .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling().authenticationEntryPoint(authenticationErrorHandle)
-                .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().build();
-
+                .addFilterBefore(tokenAuthenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)
+                .exceptionHandling()
+                .authenticationEntryPoint(authenticationErrorHandle)
+                .and()
+                .build();
     }
 }
+

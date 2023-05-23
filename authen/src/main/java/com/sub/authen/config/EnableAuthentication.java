@@ -9,9 +9,7 @@ import java.lang.annotation.Target;
 
 @Import({GatewayAuthenConfig.class,
         RedisConfig.class,
-        RestTemplateConfig.class,
-        WebFluxSecurityConfig.class,
-        JpaAuthTransactionConfiguration.class})
+        RestTemplateConfig.class})
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EnableAuthentication {
