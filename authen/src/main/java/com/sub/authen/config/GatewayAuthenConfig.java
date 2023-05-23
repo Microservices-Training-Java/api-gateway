@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.reactive.config.EnableWebFlux;
 
 @Configuration
 @EnableWebSecurity
@@ -27,6 +28,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         basePackages = {"com.sub.authen"}, transactionManagerRef = "jpaAuthTransactionManager")
 @EntityScan(basePackages = {"com.sub.authen.entity"})
 @EnableJpaAuditing
+//@EnableWebFlux
 // Main có tác dụng quét bean trong applicationContext => phải có componentscanf quét thủ công
 public class GatewayAuthenConfig {
 //    @Autowired
