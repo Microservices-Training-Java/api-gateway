@@ -5,6 +5,8 @@ import com.sub.authen.constant.URLConstant;
 import com.sub.authen.entity.AuthAccount;
 import com.sub.authen.entity.AuthUser;
 import com.sub.authen.entity.AccountUserProjection;
+import com.sub.authen.request.AuthRegistAccountRequest;
+import com.sub.authen.response.AuthRegistAccountResponse;
 import java.util.ArrayList;
 
 import com.sub.authen.constant.CacheConstant;
@@ -93,5 +95,10 @@ public class FacadeServiceImpl implements FacadeService{
     @Override
     public void enableLockPermanent(String email) {
         restTemplate.getForEntity(URLConstant.UserUrl+"/accounts-lock/"+email,String.class);
+    }
+
+    @Override
+    public AuthRegistAccountResponse register(AuthRegistAccountRequest request) {
+        return restTemplate.getForEntity(URLConstant.UserUrl + "/");
     }
 }

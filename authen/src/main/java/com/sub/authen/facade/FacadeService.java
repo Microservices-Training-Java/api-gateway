@@ -3,7 +3,9 @@ package com.sub.authen.facade;
 import com.sub.authen.entity.AuthAccount;
 import com.sub.authen.entity.AuthUser;
 import com.sub.authen.entity.AccountUserProjection;
+import com.sub.authen.request.AuthRegistAccountRequest;
 import com.sub.authen.request.AuthUserLoginRequest;
+import com.sub.authen.response.AuthRegistAccountResponse;
 import com.sub.authen.response.AuthUserLoginResponse;
 
 public interface FacadeService {
@@ -14,4 +16,5 @@ public interface FacadeService {
     AccountUserProjection findByUsername(String userId);
     void enableLockPermanent(String email);
 
+  AuthRegistAccountResponse register(AuthRegistAccountRequest request);
 }

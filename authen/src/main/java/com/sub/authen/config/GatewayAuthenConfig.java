@@ -52,5 +52,7 @@ public class GatewayAuthenConfig {
                 .and()
                 .build();
     }
+
+
 }
 
