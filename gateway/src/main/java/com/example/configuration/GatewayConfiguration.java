@@ -5,5 +5,5 @@ import org.springframework.context.annotation.Configuration;
 
 @EnableAuthentication
 @Configuration
-public class ConfigurationGateway {
+public class GatewayConfiguration {
 }

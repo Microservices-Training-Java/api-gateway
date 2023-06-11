@@ -10,12 +10,12 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 
 @Configuration
 @Primary
-public class ConfigurationSwagger implements SwaggerResourcesProvider {
+public class SwaggerConfiguration implements SwaggerResourcesProvider {
 
   public static final String API_URI = "/v3/api-docs";
   private final RouteDefinitionLocator routeLocator;
 
-  public ConfigurationSwagger(RouteDefinitionLocator routeLocator) {
+  public SwaggerConfiguration(RouteDefinitionLocator routeLocator) {
     this.routeLocator = routeLocator;
   }
 
