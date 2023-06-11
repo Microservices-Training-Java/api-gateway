@@ -27,9 +27,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         basePackages = {"com.sub.authen"}, transactionManagerRef = "jpaAuthTransactionManager")
 @EntityScan(basePackages = {"com.sub.authen.entity"})
 @EnableJpaAuditing
-// Main có tác dụng quét bean trong applicationContext => phải có componentscanf quét thủ công
 public class GatewayAuthenConfig {
-//    @Autowired
+
     private final TokenAuthenticationFilter tokenAuthenticationFilter;
     @Autowired
     private AuthenticationErrorHandle authenticationErrorHandle;

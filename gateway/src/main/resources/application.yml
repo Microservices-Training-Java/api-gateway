@@ -8,19 +8,6 @@ application:
       life_time: 3600000
 
 
-
-#application.authentication.access_token.jwt_secret:Z8GJ64eimY
-#application.authentication.access_token.life_time: 3600000
-#application.authentication.refresh_token.jwt_secret:Z8GJ64eimY
-#application.authentication.refresh_token.life_time:3600000
-#spring.datasource.url=jdbc:postgresql://localhost:5432/postgres?currentSchema=okrs_authen
-#spring.datasource.username=postgres
-#spring.datasource.password=123456
-#spring.jpa.hibernate.ddl-auto=update
-#spring.jpa.show-sql=true
-#spring.data.redis.port=6379
-#spring.data.redis.host=localhost
-
 # EUREKA CONFIG
 server:
   port: 9093
@@ -59,7 +46,7 @@ spring:
 
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/authen #postgres?currentSchema=okrs_authen
+    url: jdbc:postgresql://localhost:5432/authen
     username: postgres
     password: linh2002
   jpa:
