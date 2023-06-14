@@ -31,6 +31,13 @@ spring:
         filters:
           - RewritePath=/api/v1/users/(?<path>.*), /$\{path}
 
+      - id: book-service
+        uri: lb://book-service
+        predicates:
+          - Path=/api/v1/books/**
+        filters:
+          - RewritePath=/api/v1/books/(?<path>.*), /$\{path}
+
       - id: gateway-service
         uri: lb://gateway-service:9093
         predicates:

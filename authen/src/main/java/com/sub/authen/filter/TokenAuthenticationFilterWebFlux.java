@@ -5,6 +5,7 @@ import com.sub.authen.service.AuthTokenService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
@@ -22,18 +23,17 @@ public class TokenAuthenticationFilterWebFlux implements WebFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         log.info("Start filter");
-        var headers = exchange.getRequest().getHeaders();
-        var userId = headers.getFirst("user_id");
-        var role = headers.getFirst("role");
-        var language = headers.getFirst("language");
-        var username = headers.getFirst("username");
 
-        exchange.getAttributes().put("userId", userId);
-        exchange.getAttributes().put("role", role);
-        exchange.getAttributes().put("language", language);
-        exchange.getAttributes().put("username", username);
+        var modifiedHeaders = new HttpHeaders();
+        modifiedHeaders.add("userId", "Leonard test header: userId");
+        modifiedHeaders.add("userRoles", "Leonard test header: userRoles");
+        modifiedHeaders.add("username", "Leonard test header: username");
+        modifiedHeaders.add("language", "Leonard test header: language");
+        var request = exchange.getRequest().mutate()
+            .headers(httpHeaders -> httpHeaders.addAll(modifiedHeaders))
+            .build();
 
-        return chain.filter(exchange);
+        return chain.filter(exchange.mutate().request(request).build());
     }
 }
 
