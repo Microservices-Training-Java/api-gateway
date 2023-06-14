@@ -1,8 +1,10 @@
-package com.sub.authen.repository.projection;
+package com.sub.authen.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -16,4 +18,5 @@ public class AccountUserProjection {
   private String email;
   private Boolean isActivated;
   private Boolean isLockPermanent;
+  private Set<Role> roles;
 }
