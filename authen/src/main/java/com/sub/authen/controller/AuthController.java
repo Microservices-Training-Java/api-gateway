@@ -14,15 +14,7 @@ public class AuthController {
     private final FacadeService authFacadeService;
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> login(
-             @RequestBody AuthUserLoginRequest request) {
-//        try {
-//            return ResponseEntity.ok(authFacadeService.login(request));
-//
-//        }catch (Exception exception){
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
+    public ResponseEntity<?> login(@RequestBody AuthUserLoginRequest request) {
         return ResponseEntity.ok(authFacadeService.login(request));
-
     }
 }

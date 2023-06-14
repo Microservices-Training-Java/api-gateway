@@ -1,13 +1,13 @@
 package com.sub.authen.facade;
 
+import com.example.BadRequestException;
 import com.sub.authen.constant.URLConstant;
 import com.sub.authen.entity.AuthAccount;
 import com.sub.authen.entity.AuthUser;
-import com.sub.authen.repository.projection.AccountUserProjection;
+import com.sub.authen.entity.AccountUserProjection;
 import java.util.ArrayList;
 
 import com.sub.authen.constant.CacheConstant;
-import com.sub.authen.exception.BaseException;
 import com.sub.authen.request.AuthUserLoginRequest;
 import com.sub.authen.response.AuthActiveUserResponse;
 import com.sub.authen.response.AuthInactiveUserResponse;
@@ -49,15 +49,15 @@ public class FacadeServiceImpl implements FacadeService{
         if (!CryptUtil.getPasswordEncoder().matches(request.getPassword(), accountUser.getPassword())) {
             loginFailService.increaseFailAttempts(accountUser.getEmail());
             loginFailService.setLock(accountUser.getEmail());
-            throw new BaseException(401,"401", "Username or Password is invalid");
+            throw new BadRequestException("Username or Password is invalid");
         }
         loginFailService.resetFailAttempts(accountUser.getEmail());
         String accessToken =
                 authTokenService.generateAccessToken(
-                        accountUser.getUserId(), accountUser.getEmail(), accountUser.getUsername());
+                        accountUser.getUserId(), accountUser.getEmail(), accountUser.getUsername(), accountUser.getRoles());
         String refreshToken =
                 authTokenService.generateRefreshToken(
-                        accountUser.getUserId(), accountUser.getEmail(), accountUser.getUsername());
+                        accountUser.getUserId(), accountUser.getEmail(), accountUser.getUsername(), accountUser.getRoles());
         tokenRedisService.set(CacheConstant.CacheToken.KEY_CACHE_ACCESS_TOKEN, accountUser.getUserId(), accessToken);
         tokenRedisService.set(CacheConstant.CacheToken.KEY_CACHE_REFRESH_TOKEN, accountUser.getUserId(), refreshToken);
         authenticate(accountUser.getUsername(), accountUser.getUserId());

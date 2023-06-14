@@ -1,5 +1,6 @@
 package com.sub.authen.service.impl;
 
+import com.sub.authen.entity.Role;
 import com.sub.authen.service.AuthTokenService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -8,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,12 +53,11 @@ public class AuthTokenServiceImpl implements AuthTokenService {
         return getClaim(token, Claims::getExpiration, secretKey).before(new Date());
     }
     @Override
-    public String generateAccessToken(String userId, String email, String username) {
+    public String generateAccessToken(String userId, String email, String username, Set<Role> roles) {
         var claims = new HashMap<String, Object>();
         claims.put("email", email);
         claims.put("username", username);
-        // TODO: put role to set token
-//        claims.put("role", new HashSet<>());
+        claims.put("roles", roles);
         return generateToken(userId, claims, accessTokenLifeTime, accessTokenJwtSecret);
     }
     private String generateToken(
@@ -70,11 +71,12 @@ public class AuthTokenServiceImpl implements AuthTokenService {
             .compact();
     }
     @Override
-    public String generateRefreshToken(String userId, String email, String username) {
+    public String generateRefreshToken(String userId, String email, String username, Set<Role> roles) {
         log.info("(generateRefreshToken)userId: {}, email: {}, username: {}", userId, email, username);
         var claims = new HashMap<String, Object>();
         claims.put("email", email);
         claims.put("username", username);
+        claims.put("roles", roles);
         return generateToken(userId, claims, refreshTokenLifeTime, refreshTokenJwtSecret);
     }
 
