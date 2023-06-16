@@ -3,16 +3,10 @@ package com.sub.authen.filter;
 import com.sub.authen.entity.Role;
 import com.sub.authen.facade.FacadeService;
 import com.sub.authen.service.AuthTokenService;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +17,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
@@ -69,6 +62,7 @@ public class TokenAuthenticationFilter implements WebFilter {
             if (authTokenService.validateAccessToken(jwtToken, userId)) {
                 Set<Role> roles = account.getRoles();
                 // Convert the Set<Role> to a collection of GrantedAuthority
+                log.info("account is: {}", account);
                 Collection<GrantedAuthority> authorities = roles.stream()
                         .map(role -> new SimpleGrantedAuthority(role.getName()))
                         .collect(Collectors.toList());
@@ -79,7 +73,12 @@ public class TokenAuthenticationFilter implements WebFilter {
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthToken);
             }
         }
-
+        try {
+            chain.filter(exchange);
+        }
+        catch (Exception e){
+            log.info("exception is: ", e);
+        }
         return chain.filter(exchange);
     }
 }

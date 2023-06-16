@@ -14,6 +14,7 @@ import com.sub.authen.response.AuthInactiveUserResponse;
 import com.sub.authen.response.AuthUserLoginResponse;
 import com.sub.authen.service.*;
 import com.sub.authen.utils.CryptUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
+@Slf4j
 public class FacadeServiceImpl implements FacadeService{
 //    @Autowired
 //    private AuthAccountService authAccountService;
@@ -41,6 +43,7 @@ public class FacadeServiceImpl implements FacadeService{
     private RestTemplate restTemplate;
     public AuthUserLoginResponse login(AuthUserLoginRequest request) {
         var accountUser = findByUsername(request.getUsername());
+        log.info("accountUser is: {}", accountUser.toString());
         if (!accountUser.getIsActivated()) {
             return AuthInactiveUserResponse.from("Tài khoản chưa active");
         }
@@ -81,8 +84,8 @@ public class FacadeServiceImpl implements FacadeService{
     }
 
     @Override
-    public AuthAccount findByUserIdWithThrow(String userId) {
-        return restTemplate.getForEntity(URLConstant.UserUrl+"/account/"+userId,AuthAccount.class).getBody();
+    public AccountUserProjection findByUserIdWithThrow(String userId) {
+        return restTemplate.getForEntity(URLConstant.UserUrl+"/accounts/"+userId,AccountUserProjection.class).getBody();
     }
 
     @Override
