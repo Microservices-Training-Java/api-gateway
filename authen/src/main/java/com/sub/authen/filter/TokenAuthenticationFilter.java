@@ -1,14 +1,17 @@
 package com.sub.authen.filter;
 
+import com.sub.authen.entity.AuthUser;
 import com.sub.authen.entity.Role;
 import com.sub.authen.facade.FacadeService;
 import com.sub.authen.service.AuthTokenService;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,6 +27,7 @@ import reactor.core.publisher.Mono;
 @Component
 @AllArgsConstructor
 @Slf4j
+@Order(-1)
 public class TokenAuthenticationFilter implements WebFilter {
 
   private final AuthTokenService authTokenService;
@@ -58,6 +62,9 @@ public class TokenAuthenticationFilter implements WebFilter {
         SecurityContextHolder.getContext().getAuthentication())) {
       var user = facadeService.findById(userId);
       var account = facadeService.findByUserIdWithThrow(user.getId());
+      exchange.getAttributes().put("userId", user.getId());
+      exchange.getAttributes().put("userRoles", account.getRoles());
+      exchange.getAttributes().put("username", account.getUsername());
       if (authTokenService.validateAccessToken(jwtToken, userId)) {
         Set<Role> roles = account.getRoles();
         // Convert the Set<Role> to a collection of GrantedAuthority

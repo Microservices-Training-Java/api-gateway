@@ -9,8 +9,7 @@ import org.springframework.context.annotation.Import;
 @Import({
     GatewayAuthenConfig.class,
     RedisConfig.class,
-    RestTemplateConfig.class,
-    WebFluxSecurityConfig.class})
+    RestTemplateConfig.class})
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EnableAuthentication {

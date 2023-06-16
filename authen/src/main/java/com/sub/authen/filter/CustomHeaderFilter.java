@@ -15,7 +15,8 @@ import reactor.core.publisher.Mono;
 @AllArgsConstructor
 @Component
 @Slf4j
-public class TokenAuthenticationFilterWebFlux implements WebFilter {
+@Order(0)
+public class CustomHeaderFilter implements WebFilter {
 
     private final AuthTokenService authTokenService;
     private final FacadeService facadeService;
@@ -25,10 +26,9 @@ public class TokenAuthenticationFilterWebFlux implements WebFilter {
         log.info("Start filter");
 
         var modifiedHeaders = new HttpHeaders();
-        modifiedHeaders.add("userId", "Leonard test header: userId");
-        modifiedHeaders.add("userRoles", "Leonard test header: userRoles");
-        modifiedHeaders.add("username", "Leonard test header: username");
-        modifiedHeaders.add("language", "Leonard test header: language");
+        modifiedHeaders.add("userId", exchange.getAttribute("userId"));
+        modifiedHeaders.add("userRoles", exchange.getAttribute("userRoles"));
+        modifiedHeaders.add("username", exchange.getAttribute("username"));
         var request = exchange.getRequest().mutate()
             .headers(httpHeaders -> httpHeaders.addAll(modifiedHeaders))
             .build();
