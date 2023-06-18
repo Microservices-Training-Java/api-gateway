@@ -62,10 +62,12 @@ public class TokenAuthenticationFilter implements WebFilter {
         if (Objects.nonNull(userId)) {
             var user = facadeService.findById(userId);
             var account = facadeService.findByUserIdWithThrow(user.getId());
+            exchange.getAttributes().put("userId", user.getId());
+            exchange.getAttributes().put("userRoles", account.getRoles());
+            exchange.getAttributes().put("username", account.getUsername());
             if (authTokenService.validateAccessToken(jwtToken, userId)) {
                 Set<Role> roles = account.getRoles();
                 // Convert the Set<Role> to a collection of GrantedAuthority
-                log.info("account is: {}", account);
                 Collection<GrantedAuthority> authorities = roles.stream()
                     .map(role -> new SimpleGrantedAuthority(role.getName()))
                     .collect(Collectors.toList());
