@@ -25,16 +25,14 @@ import org.springframework.web.client.RestTemplate;
 @Service
 @Slf4j
 public class FacadeServiceImpl implements FacadeService{
-//    @Autowired
-//    private AuthAccountService authAccountService;
+
     @Autowired
     private LoginFailService loginFailService;
     @Autowired
     private AuthTokenService authTokenService;
     @Autowired
     private TokenRedisService tokenRedisService;
-//    @Autowired
-//    private AuthUserService authUserService;
+
     @Value("${application.authentication.access_token.life_time}")
     private Long accessTokenLifeTime;
     @Value("${application.authentication.refresh_token.life_time}")

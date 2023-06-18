@@ -49,20 +49,4 @@ public class ConfigurationSwagger implements SwaggerResourcesProvider {
     return resources;
   }
 
-//  @Bean
-//  public OpenAPI customOpenAPI() {
-//    return new OpenAPI()
-//        .servers(Lists.newArrayList(
-//            new Server().url("http://localhost:9091")
-//        ))
-//        .info(new Info()
-//            .title("API GATEWAY")
-//            .description("Sample OpenAPI Gateway")
-//            .license(new License()
-//                .name("Gateway")
-//                .url("http://localhost:9091/swagger-ui/index.html"))
-//            .version("1.0.0"));
-//  }
-
-
 }

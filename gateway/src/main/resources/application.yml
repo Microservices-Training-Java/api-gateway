@@ -9,9 +9,6 @@ application:
   kafka:
       bootstrap-server: localhost:9092
 
-
-
-
 # EUREKA CONFIG
 server:
   port: 9093
@@ -21,7 +18,6 @@ server:
 #      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
 #  instance:
 #    instanceId:myhost:myappname:9093
-
 
 #Gateway config
 spring:
@@ -36,6 +32,20 @@ spring:
           - Path=/api/v1/users/**
         filters:
           - RewritePath=/api/v1/users/(?<path>.*), /$\{path}
+      - id: book-service
+        uri: lb://book-service
+        predicates:
+          - Path=/api/v1/books/**
+        filters:
+          - RewritePath=/api/v1/books/(?<path>.*), /$\{path}
+
+      - id: gateway-service
+        uri: lb://gateway-service:9093
+        predicates:
+          - Path=/api/v1/auth/**
+        filters:
+          - RewritePath=/api/v1/auth/(?<path>.*), /$\{path}
+
     discovery:
       client:
         simple:
@@ -49,6 +59,7 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   data:
     redis:
       port: 6379

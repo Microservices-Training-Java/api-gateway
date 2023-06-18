@@ -32,6 +32,7 @@
 		<posgresql.version>42.5.4</posgresql.version>
 		<lombok.version>1.18.24</lombok.version>
 		<spring-boot-starter-data-redis.version>3.0.6</spring-boot-starter-data-redis.version>
+		<helper-header.version>0.0.1-SNAPSHOT</helper-header.version>
 		<spring-openapi.version>1.7.0</spring-openapi.version>
 		<springfox.version>3.0.0</springfox.version>
 	</properties>
@@ -63,11 +64,6 @@
 			<version>${postgresql.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-			<version>${spring-boot-starter-data-redis.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 			<version>${jedis.version}</version>
@@ -93,6 +89,11 @@
 			<version>${spring-cloud.version}</version>
 			<type>pom</type>
 			<scope>import</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.aibles</groupId>
+			<artifactId>helper-header</artifactId>
+			<version>${helper-header.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>

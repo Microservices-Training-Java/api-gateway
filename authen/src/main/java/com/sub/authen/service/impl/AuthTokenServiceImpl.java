@@ -7,6 +7,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
@@ -36,6 +37,11 @@ public class AuthTokenServiceImpl implements AuthTokenService {
     private Claims getClaims(String token, String secretKey) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
     }
+
+    public Claims getClaimsFromAccessToken(String token) {
+        return getClaims(token, accessTokenJwtSecret);
+    }
+
     @Override
     public boolean validateAccessToken(String accessToken, String userId) {
         if(getSubjectFromAccessToken(accessToken).equals(userId) == false || isExpiredToken(accessToken,accessTokenJwtSecret) == true){
