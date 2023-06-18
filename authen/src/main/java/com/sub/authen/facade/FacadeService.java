@@ -10,7 +10,7 @@ public interface FacadeService {
     AuthUserLoginResponse login(AuthUserLoginRequest request);
     void authenticate(String username, String userId);
     AuthUser findById(String id);
-    AuthAccount findByUserIdWithThrow(String userId);
+    AccountUserProjection findByUserIdWithThrow(String userId);
     AccountUserProjection findByUsername(String userId);
     void enableLockPermanent(String email);
 

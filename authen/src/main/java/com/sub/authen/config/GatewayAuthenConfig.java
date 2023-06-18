@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -15,6 +16,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 
 @Configuration
 @EnableWebFluxSecurity
+@EnableReactiveMethodSecurity
 @AllArgsConstructor
 @ComponentScan(basePackages = "com.sub.authen")
 public class GatewayAuthenConfig {
@@ -35,7 +37,7 @@ public class GatewayAuthenConfig {
         .pathMatchers("/api/v1/auth/**").permitAll()
         .anyExchange().authenticated()
         .and()
-        .addFilterBefore(tokenAuthenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)
+        .addFilterBefore(tokenAuthenticationFilter,SecurityWebFiltersOrder.AUTHENTICATION)
         .exceptionHandling()
         .authenticationEntryPoint(authenticationErrorHandle)
         .and()

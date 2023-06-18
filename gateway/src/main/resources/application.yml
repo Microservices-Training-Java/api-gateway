@@ -12,7 +12,7 @@ application:
 # EUREKA CONFIG
 server:
   port: 9093
-eureka:
+#eureka:
   client:
     serviceUrl:
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
@@ -52,7 +52,7 @@ spring:
           service-ids: gateway-service
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL}#postgres?currentSchema=okrs_authen
+    url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:

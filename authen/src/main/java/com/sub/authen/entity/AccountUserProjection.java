@@ -19,4 +19,5 @@ public class AccountUserProjection {
   private Boolean isActivated;
   private Boolean isLockPermanent;
   private Set<Role> roles;
+
 }
