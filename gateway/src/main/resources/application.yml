@@ -16,8 +16,8 @@ eureka:
   client:
     serviceUrl:
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
-  instance:
-    instanceId:myhost:myappname:9093
+#  instance:
+#    instanceId:myhost:myappname:9093
 
 #Gateway config
 spring:
@@ -29,16 +29,16 @@ spring:
       - id: user-service
         uri: lb://user-service
         predicates:
-          - Path=/api/v1/users/**
+          - Path=/api/v1/**
         filters:
-          - RewritePath=/api/v1/users/(?<path>.*), /$\{path}
-      - id: book-service
-        uri: lb://book-service
-        predicates:
-          - Path=/api/v1/books/**
-        filters:
-          - RewritePath=/api/v1/books/(?<path>.*), /$\{path}
-
+          - RewritePath=/api/v1/(?<path>.*), /$\{path}
+#      - id: book-service
+#        uri: lb://book-service
+#        predicates:
+#          - Path=/api/v1/books/**
+#        filters:
+#          - RewritePath=/api/v1/books/(?<path>.*), /$\{path}
+#
       - id: gateway-service
         uri: lb://gateway-service:9093
         predicates:
@@ -69,13 +69,13 @@ spring:
     allow-bean-definition-overriding: true
     allow-circular-references: true
 
-springdoc:
-  api-docs:
-    enabled: true
-    path: /v3/api-docs
-  swagger-ui:
-    enabled: true
-    path: /swagger-ui.html
-  openapi:
-    server:
-      - url: http://localhost:9093
+#springdoc:
+#  api-docs:
+#    enabled: true
+#    path: /v3/api-docs
+#  swagger-ui:
+#    enabled: true
+#    path: /swagger-ui.html
+#  openapi:
+#    server:
+#      - url: http://localhost:9093

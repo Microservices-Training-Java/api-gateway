@@ -33,6 +33,7 @@ public class GatewayAuthenConfig {
         .csrf().disable()
         .authorizeExchange()
         .pathMatchers("/api/v1/auth/**").permitAll()
+        .pathMatchers("/swagger-ui/**").permitAll()
         .anyExchange().authenticated()
         .and()
         .addFilterBefore(tokenAuthenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)

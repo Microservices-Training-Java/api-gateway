@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.10</version>
+		<version>3.1.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
@@ -22,16 +22,11 @@
 		<module>kafka</module>
 	</modules>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<spring-cloud.version>2021.0.6</spring-cloud.version>
-		<spring-cloud-starter-gateway.version>3.1.6</spring-cloud-starter-gateway.version>
-		<spring-cloud-starter-netflix-ribbon.version>2.2.4.RELEASE</spring-cloud-starter-netflix-ribbon.version>
-		<spring-cloud-starter-netflix-eureka-client.version>4.0.0</spring-cloud-starter-netflix-eureka-client.version>
-		<validation-api.version>2.0.1.Final</validation-api.version>
 		<jjwt.version>0.9.1</jjwt.version>
 		<posgresql.version>42.5.4</posgresql.version>
 		<lombok.version>1.18.24</lombok.version>
-		<spring-boot-starter-data-redis.version>3.0.6</spring-boot-starter-data-redis.version>
 		<helper-header.version>0.0.1-SNAPSHOT</helper-header.version>
 		<spring-openapi.version>1.7.0</spring-openapi.version>
 		<springfox.version>3.0.0</springfox.version>
@@ -44,21 +39,6 @@
 			<version>${springfox.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-gateway</artifactId>
-			<version>${spring-cloud-starter-gateway.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-			<version>${spring-cloud-starter-netflix-ribbon.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-			<version>${spring-cloud-starter-netflix-eureka-client.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>${postgresql.version}</version>
@@ -67,11 +47,6 @@
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 			<version>${jedis.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>${validation-api.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
