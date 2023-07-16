@@ -16,8 +16,8 @@ eureka:
   client:
     serviceUrl:
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
-#  instance:
-#    instanceId:myhost:myappname:9093
+  instance:
+    instanceId:myhost:myappname:9093
 
 #Gateway config
 spring:
@@ -29,32 +29,18 @@ spring:
       - id: user-service
         uri: lb://user-service
         predicates:
-          - Path=/api/v1/**
+          - Path=/user-service/**
         filters:
-          - RewritePath=/api/v1/(?<path>.*), /$\{path}
-#      - id: book-service
-#        uri: lb://book-service
-#        predicates:
-#          - Path=/api/v1/books/**
-#        filters:
-#          - RewritePath=/api/v1/books/(?<path>.*), /$\{path}
-#
-      - id: gateway-service
-        uri: lb://gateway-service:9093
-        predicates:
-          - Path=/api/v1/auth/**
-        filters:
-          - RewritePath=/api/v1/auth/(?<path>.*), /$\{path}
-
+          - RewritePath=/user-service/(?<path>.*), /$\{path}
     discovery:
       client:
         simple:
           service-ids: gateway-service
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL}#postgres?currentSchema=okrs_authen
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/postgres?currentSchema=okrs_authen}#postgres?currentSchema=okrs_authen
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:123456}
   jpa:
     hibernate:
       ddl-auto: update
@@ -68,14 +54,16 @@ spring:
     web-application-type: reactive
     allow-bean-definition-overriding: true
     allow-circular-references: true
-
-#springdoc:
-#  api-docs:
-#    enabled: true
-#    path: /v3/api-docs
-#  swagger-ui:
-#    enabled: true
-#    path: /swagger-ui.html
-#  openapi:
-#    server:
-#      - url: http://localhost:9093
+springdoc:
+  enable-native-support: true
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
+    urls:
+      - url: /v3/api-docs
+        name: API Gateway Service
+      - url: /user-service/v3/api-docs
+        name: User Service
